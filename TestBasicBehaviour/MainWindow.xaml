@@ -1,0 +1,46 @@
+﻿<!--  Add Nuget System.Windows.Interactivity.WPF  -->
+<Window x:Class="TestBasicBehaviour.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:TestBasicBehaviour"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="MainWindow" Width="800" Height="450" mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding RelativeSource="{RelativeSource Self}" />
+    </Window.DataContext>
+    <StackPanel>
+        <Rectangle x:Name="rectangle1" Width="159.712" Height="86.331"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Fill="#FF1313D8" Stroke="Black">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseEnter" SourceName="rectangle1">
+                    <ei:ChangePropertyAction PropertyName="Width" TargetName="rectangle1" Value="300" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeave" SourceName="rectangle1">
+                    <ei:ChangePropertyAction PropertyName="Width" TargetName="rectangle1" Value="100" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Rectangle>
+        <Rectangle x:Name="rectangle2" Width="192.086" Height="108.633"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Fill="Crimson" Opacity="0.1" Stroke="Black">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseEnter" SourceName="rectangle2">
+                    <ei:ChangePropertyAction PropertyName="Opacity" TargetName="rectangle2"
+                                             Value="{Binding Translucent}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeave" SourceName="rectangle2">
+                    <!--  For whatever reasons, it accepts only 0 amd 1  -->
+                    <!--<ei:ChangePropertyAction PropertyName="Opacity" TargetName="rectangle2" Value="0.5" />-->
+                    <ei:ChangePropertyAction PropertyName="Opacity" TargetName="rectangle2" Value="1" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </Rectangle>
+
+        <TextBox Text="{Binding Translucent, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+</Window>
